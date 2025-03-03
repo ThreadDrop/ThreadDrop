@@ -4,7 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThreadDrop Wallet Connection</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+        }
+        
+        .cosmic-bg {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: black;
+        }
+        
+        .cosmic-bg video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+        }
+        
+        .wallet-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+        }
+        
+        .wallet-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        .disconnect {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="cosmic-bg">
@@ -13,21 +69,32 @@
             Your browser does not support the video tag.
         </video>
     </div>
-
-    <div class="wallet-connect-box">
-        <h2 class="wallet-connect-title">Link Your Crypto Wallet</h2>
-        <button id="connect-wallet" class="wallet-connect-button">Connect & Drip</button>
-        <button id="disconnect-wallet" class="wallet-connect-button disconnect">Disconnect</button>
+    
+    <div class="wallet-container">
+        <h2>Link Your Crypto Wallet</h2>
+        <button id="connect-wallet" class="wallet-button">Connect & Drip</button>
+        <button id="disconnect-wallet" class="wallet-button disconnect">Disconnect</button>
         <p id="wallet-status">❌ LONELY</p>
         <p id="wallet-address"></p>
+        <div id="mascot-animation" class="pepe-eyebrow"></div>
     </div>
-
+    
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
             const connectButton = document.getElementById("connect-wallet");
             const disconnectButton = document.getElementById("disconnect-wallet");
             const walletStatus = document.getElementById("wallet-status");
             const walletAddressDisplay = document.getElementById("wallet-address");
+            const mascot = document.getElementById("mascot-animation");
+            const backgroundVideo = document.getElementById("background-video");
+            
+            let connectBlip = new Audio("https://example.com/futuristic-blip.mp3");
+            let disconnectSound = new Audio("https://example.com/sad-sound.mp3");
+
+            function playSound(sound) {
+                sound.currentTime = 0;
+                sound.play();
+            }
 
             async function checkStoredWallet() {
                 let storedWallet = localStorage.getItem("walletAddress");
@@ -39,7 +106,10 @@
             connectButton.addEventListener("click", async function () {
                 try {
                     if (window.solana && window.solana.isPhantom) {
+                        playSound(connectBlip);
                         walletStatus.innerHTML = "ThreadDrop Syncing...";
+                        mascot.classList.add("loading");
+
                         setTimeout(async () => {
                             const response = await window.solana.connect();
                             const walletAddress = response.publicKey.toString();
@@ -56,6 +126,7 @@
 
             disconnectButton.addEventListener("click", function () {
                 localStorage.removeItem("walletAddress");
+                playSound(disconnectSound);
                 resetUI();
             });
 
@@ -64,13 +135,16 @@
                 disconnectButton.style.display = "block";
                 walletStatus.innerHTML = "✅ IN GOOD COMPANY";
                 walletAddressDisplay.innerHTML = `Connected: ${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`;
+                mascot.classList.remove("loading");
+                mascot.classList.add("success");
             }
 
             function resetUI() {
                 connectButton.style.display = "block";
                 disconnectButton.style.display = "none";
-                walletStatus.innerHTML = "❌ LONELY";
+                walletStatus.innerHTML = "😔 LONELY";
                 walletAddressDisplay.innerHTML = "";
+                mascot.classList.remove("success");
             }
 
             checkStoredWallet();
@@ -78,4 +152,3 @@
     </script>
 </body>
 </html>
-
