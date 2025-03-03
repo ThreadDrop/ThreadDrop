@@ -1,29 +1,50 @@
+/* Reset all styles and start fresh */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Background Styling */
+body {
+    background: black;
+    overflow: hidden;
+}
+
+.cosmic-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
+
 /* Wallet Connect Box Styling */
 .wallet-connect-box {
-    position: fixed; /* Ensures it stays centered */
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(20, 20, 20, 0.85);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    padding: 20px;
+    background: rgba(20, 20, 20, 0.9);
+    padding: 25px;
     width: 350px;
     text-align: center;
+    border-radius: 12px;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    z-index: 10; /* Ensures it appears above other elements */
 }
 
 /* Title Styling */
 .wallet-connect-title {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     color: #ffffff;
     margin-bottom: 15px;
 }
 
-/* Connect Button */
+/* Connect & Disconnect Buttons */
 .wallet-connect-button {
     display: flex;
     align-items: center;
@@ -37,15 +58,15 @@
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    width: 200px; /* Ensures uniform button size */
-    margin: 5px auto; /* Centers buttons horizontally */
+    width: 100%;
+    margin-top: 10px;
 }
 
 .wallet-connect-button:hover {
     background: linear-gradient(90deg, #5a00cc, #00aacc);
 }
 
-/* Wallet Icon inside the Button */
+/* Wallet Icon */
 .wallet-connect-button svg {
     margin-right: 8px;
     width: 18px;
@@ -53,7 +74,7 @@
     fill: white;
 }
 
-/* Status Message (Not Connected) */
+/* Status Message */
 .wallet-status {
     margin-top: 12px;
     font-size: 14px;
@@ -68,10 +89,4 @@
     height: 18px;
     fill: #b0b0b0;
     margin-right: 6px;
-}
-
-/* Fixing Unexpected Black Shape */
-body::before {
-    content: none !important;
-    display: none !important;
 }
