@@ -1,7 +1,11 @@
 /* Wallet Connect Box Styling */
 .wallet-connect-box {
-    background: rgba(20, 20, 20, 0.85); /* Semi-transparent dark background */
-    backdrop-filter: blur(10px); /* Adds a soft blur effect */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(20, 20, 20, 0.85);
+    backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 20px;
     width: 350px;
@@ -23,7 +27,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(90deg, #6f00ff, #00d4ff); /* Purple to Cyan Gradient */
+    background: linear-gradient(90deg, #6f00ff, #00d4ff);
     color: #ffffff;
     font-size: 16px;
     font-weight: bold;
@@ -35,7 +39,7 @@
 }
 
 .wallet-connect-button:hover {
-    background: linear-gradient(90deg, #5a00cc, #00aacc); /* Darker gradient on hover */
+    background: linear-gradient(90deg, #5a00cc, #00aacc);
 }
 
 /* Wallet Icon inside the Button */
@@ -61,4 +65,10 @@
     height: 18px;
     fill: #b0b0b0;
     margin-right: 6px;
+}
+
+/* Fixing Unexpected Black Shape */
+.wallet-connect-box::before {
+    content: "";
+    display: none;
 }
