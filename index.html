@@ -31,35 +31,6 @@
             object-fit: cover;
             z-index: -1;
         }
-        
-        .wallet-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 1;
-            color: white;
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-        }
-        
-        .wallet-button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-        
-        .disconnect {
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -70,85 +41,26 @@
         </video>
     </div>
     
-    <div class="wallet-container">
-        <h2>Link Your Crypto Wallet</h2>
-        <button id="connect-wallet" class="wallet-button">Connect & Drip</button>
-        <button id="disconnect-wallet" class="wallet-button disconnect">Disconnect</button>
-        <p id="wallet-status">❌ LONELY</p>
+    <div class="wallet-connect-box">
+        <h2 class="wallet-connect-title">Link Your Crypto Wallet</h2>
+        <button id="connect-wallet" class="wallet-connect-button">
+            <svg viewBox="0 0 24 24">
+                <path d="M3 6h18v12H3V6zm16 10V8H5v8h14zm-3-3h-3v-2h3v2z"/>
+            </svg>
+            Connect & Drip
+        </button>
+        <button id="disconnect-wallet" class="wallet-connect-button disconnect">Disconnect</button>
+        
+        <div class="wallet-status" id="wallet-status">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 3.59 8 8-8-3.59 8-8 8zm-1-5h2v2h-2zm0-6h2v4h-2z"/>
+            </svg>
+            Not Connected
+        </div>
+        
         <p id="wallet-address"></p>
         <div id="mascot-animation" class="pepe-eyebrow"></div>
     </div>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", async function () {
-            const connectButton = document.getElementById("connect-wallet");
-            const disconnectButton = document.getElementById("disconnect-wallet");
-            const walletStatus = document.getElementById("wallet-status");
-            const walletAddressDisplay = document.getElementById("wallet-address");
-            const mascot = document.getElementById("mascot-animation");
-            const backgroundVideo = document.getElementById("background-video");
-            
-            let connectBlip = new Audio("https://example.com/futuristic-blip.mp3");
-            let disconnectSound = new Audio("https://example.com/sad-sound.mp3");
-
-            function playSound(sound) {
-                sound.currentTime = 0;
-                sound.play();
-            }
-
-            async function checkStoredWallet() {
-                let storedWallet = localStorage.getItem("walletAddress");
-                if (storedWallet) {
-                    updateUI(storedWallet);
-                }
-            }
-
-            connectButton.addEventListener("click", async function () {
-                try {
-                    if (window.solana && window.solana.isPhantom) {
-                        playSound(connectBlip);
-                        walletStatus.innerHTML = "ThreadDrop Syncing...";
-                        mascot.classList.add("loading");
-
-                        setTimeout(async () => {
-                            const response = await window.solana.connect();
-                            const walletAddress = response.publicKey.toString();
-                            localStorage.setItem("walletAddress", walletAddress);
-                            updateUI(walletAddress);
-                        }, 1000);
-                    } else {
-                        walletStatus.innerHTML = "Phantom Wallet not detected. Please install it.";
-                    }
-                } catch (error) {
-                    walletStatus.innerHTML = "Connection Failed";
-                }
-            });
-
-            disconnectButton.addEventListener("click", function () {
-                localStorage.removeItem("walletAddress");
-                playSound(disconnectSound);
-                resetUI();
-            });
-
-            function updateUI(walletAddress) {
-                connectButton.style.display = "none";
-                disconnectButton.style.display = "block";
-                walletStatus.innerHTML = "✅ IN GOOD COMPANY";
-                walletAddressDisplay.innerHTML = `Connected: ${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`;
-                mascot.classList.remove("loading");
-                mascot.classList.add("success");
-            }
-
-            function resetUI() {
-                connectButton.style.display = "block";
-                disconnectButton.style.display = "none";
-                walletStatus.innerHTML = "❌ LONELY";
-                walletAddressDisplay.innerHTML = "";
-                mascot.classList.remove("success");
-            }
-
-            checkStoredWallet();
-        });
-    </script>
 </body>
 </html>
+
