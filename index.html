@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThreadDrop Wallet Connection</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="cosmic-bg">
@@ -13,13 +14,12 @@
         </video>
     </div>
 
-    <div class="wallet-container">
-        <h2>Link Your Crypto Wallet</h2>
-        <button id="connect-wallet">Connect & Drip</button>
-        <button id="disconnect-wallet" class="disconnect">Disconnect</button>
+    <div class="wallet-connect-box">
+        <h2 class="wallet-connect-title">Link Your Crypto Wallet</h2>
+        <button id="connect-wallet" class="wallet-connect-button">Connect & Drip</button>
+        <button id="disconnect-wallet" class="wallet-connect-button disconnect">Disconnect</button>
         <p id="wallet-status">❌ LONELY</p>
         <p id="wallet-address"></p>
-        <div id="mascot-animation"></div>
     </div>
 
     <script>
@@ -28,7 +28,6 @@
             const disconnectButton = document.getElementById("disconnect-wallet");
             const walletStatus = document.getElementById("wallet-status");
             const walletAddressDisplay = document.getElementById("wallet-address");
-            const mascot = document.getElementById("mascot-animation");
 
             async function checkStoredWallet() {
                 let storedWallet = localStorage.getItem("walletAddress");
@@ -41,8 +40,6 @@
                 try {
                     if (window.solana && window.solana.isPhantom) {
                         walletStatus.innerHTML = "ThreadDrop Syncing...";
-                        mascot.classList.add("loading");
-
                         setTimeout(async () => {
                             const response = await window.solana.connect();
                             const walletAddress = response.publicKey.toString();
@@ -67,8 +64,6 @@
                 disconnectButton.style.display = "block";
                 walletStatus.innerHTML = "✅ IN GOOD COMPANY";
                 walletAddressDisplay.innerHTML = `Connected: ${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`;
-                mascot.classList.remove("loading");
-                mascot.classList.add("success");
             }
 
             function resetUI() {
@@ -76,7 +71,6 @@
                 disconnectButton.style.display = "none";
                 walletStatus.innerHTML = "❌ LONELY";
                 walletAddressDisplay.innerHTML = "";
-                mascot.classList.remove("success");
             }
 
             checkStoredWallet();
@@ -84,3 +78,4 @@
     </script>
 </body>
 </html>
+
