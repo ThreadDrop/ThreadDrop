@@ -1,55 +1,48 @@
-body {
-    margin: 0;
-    overflow: hidden;
-    background: black;
-}
+/* Updated styling for a premium and secure look */
 
-.cosmic-bg {
+.wallet-connect-box {
     position: fixed;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    background: black;
-}
-
-.cosmic-bg video {
-    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    z-index: -1;
-}
-
-.wallet-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 380px;
+    padding: 25px;
+    background: rgba(20, 20, 20, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     text-align: center;
-    z-index: 1;
     color: white;
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 10px;
+    font-family: 'Arial', sans-serif;
 }
 
-.wallet-button {
-    padding: 10px 20px;
+.wallet-connect-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(90deg, #6f00ff, #00d4ff);
+    color: #ffffff;
     font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-    background-color: #007bff;
-    color: white;
+    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 8px;
     border: none;
-    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
 }
 
-.disconnect {
-    display: none;
+.wallet-connect-button:hover {
+    background: linear-gradient(90deg, #5a00cc, #00aacc);
+}
+
+.wallet-status {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #b0b0b0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
