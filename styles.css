@@ -1,6 +1,6 @@
 /* Wallet Connect Box Styling */
 .wallet-connect-box {
-    position: absolute;
+    position: fixed; /* Ensures it stays centered */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -12,6 +12,7 @@
     text-align: center;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 10; /* Ensures it appears above other elements */
 }
 
 /* Title Styling */
@@ -24,7 +25,7 @@
 
 /* Connect Button */
 .wallet-connect-button {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(90deg, #6f00ff, #00d4ff);
@@ -36,6 +37,8 @@
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
+    width: 200px; /* Ensures uniform button size */
+    margin: 5px auto; /* Centers buttons horizontally */
 }
 
 .wallet-connect-button:hover {
@@ -68,7 +71,7 @@
 }
 
 /* Fixing Unexpected Black Shape */
-.wallet-connect-box::before {
-    content: "";
-    display: none;
+body::before {
+    content: none !important;
+    display: none !important;
 }
