@@ -1,4 +1,3 @@
-/* Background */
 body {
     margin: 0;
     overflow: hidden;
@@ -12,15 +11,27 @@ body {
     top: 0;
     left: 0;
     z-index: -1;
+    background: black;
 }
 
-/* Wallet Connect Box */
-.wallet-connect-box {
+.cosmic-bg video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.wallet-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    z-index: 1;
     color: white;
     font-family: Arial, sans-serif;
     padding: 20px;
@@ -28,8 +39,7 @@ body {
     border-radius: 10px;
 }
 
-/* Buttons */
-.wallet-connect-button {
+.wallet-button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -43,4 +53,3 @@ body {
 .disconnect {
     display: none;
 }
-
